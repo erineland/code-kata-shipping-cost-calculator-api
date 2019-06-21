@@ -1,0 +1,38 @@
+{
+  "name": "shippingsystemtest",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./www",
+    "test": "jest"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "lodash": "^4.17.11",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.18.10",
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "jest": "^24.5.0",
+    "jest-junit": "^6.3.0",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
+  },
+  "jest-junit": {
+    "output": "./test-results.xml",
+    "suiteName": "jest tests",
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}",
+    "ancestorSeparator": " › "
+  }
+}

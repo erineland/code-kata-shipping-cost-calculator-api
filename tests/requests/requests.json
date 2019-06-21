@@ -1,0 +1,195 @@
+{
+  "valid_shipment_request_free_same_state": {
+    "shipment_request": {
+      "shippingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "receivingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "packages": [
+        {
+          "name": "Small package",
+          "weight": 1,
+          "unit": "LB"
+        }
+      ]
+    },
+    "shipment": {
+      "cost": 0
+    }
+  },
+  "valid_shipment_request_free_different_state": {
+    "shipment_request": {
+      "shippingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "receivingAddress": {
+        "addressName": "856 S. Cross St.",
+        "state": "CT",
+        "name": "John"
+      },
+      "packages": [
+        {
+          "name": "Small package",
+          "weight": 1,
+          "unit": "LB"
+        }
+      ]
+    },
+    "shipment": {
+      "cost": 0
+    }
+  },
+  "valid_shipment_request_cheap_same_state": {
+    "shipment_request": {
+      "shippingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "receivingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "packages": [
+        {
+          "name": "Small package",
+          "weight": 1,
+          "unit": "LB"
+        },
+        {
+          "name": "Macbook Pro",
+          "weight": 4,
+          "unit": "LB"
+        }
+      ]
+    },
+    "shipment": {
+      "cost": 5
+    }
+  },
+  "valid_shipment_request_cheap_different_state": {
+    "shipment_request": {
+      "shippingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "receivingAddress": {
+        "addressName": "856 S. Cross St.",
+        "state": "CT",
+        "name": "John"
+      },
+      "packages": [
+        {
+          "name": "Small package",
+          "weight": 1,
+          "unit": "LB"
+        },
+        {
+          "name": "Macbook Pro",
+          "weight": 4,
+          "unit": "LB"
+        }
+      ]
+    },
+    "shipment": {
+      "cost": 6
+    }
+  },
+  "valid_shipment_request_expensive_same_state": {
+    "shipment_request": {
+      "shippingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "receivingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "packages": [
+        {
+          "name": "Big TV",
+          "weight": 23,
+          "unit": "LB"
+        },
+        {
+          "name": "Macbook Pro",
+          "weight": 4,
+          "unit": "LB"
+        }
+      ]
+    },
+    "shipment": {
+      "cost": 54
+    }
+  },
+  "valid_shipment_request_expensive_different_state": {
+    "shipment_request": {
+      "shippingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "receivingAddress": {
+        "addressName": "856 S. Cross St.",
+        "state": "CT",
+        "name": "John"
+      },
+      "packages": [
+        {
+          "name": "Big TV",
+          "weight": 23,
+          "unit": "LB"
+        },
+        {
+          "name": "Macbook Pro",
+          "weight": 4,
+          "unit": "LB"
+        }
+      ]
+    },
+    "shipment": {
+      "cost": 64.8
+    }
+  },
+  "valid_shipment_request_mixed_weight_units": {
+    "shipment_request": {
+      "shippingAddress": {
+        "addressName": "7433 Victoria Ave.",
+        "state": "WI",
+        "name": "Jones"
+      },
+      "receivingAddress": {
+        "addressName": "856 S. Cross St.",
+        "state": "CT",
+        "name": "John"
+      },
+      "packages": [
+        {
+          "name": "Big TV",
+          "weight": 10.432636917,
+          "unit": "KG"
+        },
+        {
+          "name": "Macbook Pro",
+          "weight": 4,
+          "unit": "LB"
+        }
+      ]
+    },
+    "shipment": {
+      "cost": 64.8
+    }
+  }
+}
