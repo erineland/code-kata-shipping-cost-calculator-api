@@ -27,6 +27,7 @@ router.post('/request-shipment', function (req, res, next) {
 	const sameStatePackage = shipmentRequest.shippingAddress.state === shipmentRequest.receivingAddress.state;
 
 	// Iterate packages
+	let overallCost = 0;
 	shipmentRequest.packages.forEach(parcel => {
 		// Check unit of measurement for weight
 		if (parcel.unit === 'KG') {
@@ -35,22 +36,24 @@ router.post('/request-shipment', function (req, res, next) {
 			parcel.weight = parcel.weight * 2.2
 		}
 
-		if (parcel.weight <= 2) {
-			return res.status(200).send({ shipment: { cost: 0 } });
-		} else if (parcel.weight > 2 && parcel.weight < 20) {
-			let cost = parcel.weight;
+		if (parcel.weight > 2 && parcel.weight < 20) {
+			let currentParcelCost = parcel.weight;
 			if (!sameStatePackage) {
-				cost = outerStatePackageCost(cost);
+				overallCost += outerStatePackageCost(currentParcelCost);
+			} else {
+				overallCost += currentParcelCost;
 			}
-			return res.status(200).send({ shipment: { cost: cost } });
 		} else if (parcel.weight > 20) { // be explicit and declarative for readibility
-			const cost = parcel.weight * 2;
+			const currentParcelCost = parcel.weight * 2;
 			if (!sameStatePackage) {
-				cost = outerStatePackageCost(cost);;
+				overallCost = outerStatePackageCost(currentParcelCost);
+			} else {
+				overallCost += currentParcelCost;
 			}
-			return res.status(200).send({ shipment: { cost: cost } });
 		}
 	});
+
+	return res.status(200).send({ shipment: { cost: overallCost } });
 });
 
 const outerStatePackageCost = originalCost => originalCost * 1.2;
