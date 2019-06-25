@@ -28,6 +28,7 @@ router.post('/request-shipment', function (req, res, next) {
 
 	// Iterate packages
 	let overallCost = 0;
+	let overallWeight = 0;
 	shipmentRequest.packages.forEach(parcel => {
 		// Check unit of measurement for weight
 		if (parcel.unit === 'KG') {
@@ -36,14 +37,16 @@ router.post('/request-shipment', function (req, res, next) {
 			parcel.weight = parcel.weight * 2.2
 		}
 
-		if (parcel.weight > 2 && parcel.weight < 20) {
+		overallWeight += parcel.weight;
+
+		if (overallWeight.weight > 2 && overallWeight.weight < 20) {
 			let currentParcelCost = parcel.weight;
 			if (!sameStatePackage) {
 				overallCost += outerStatePackageCost(currentParcelCost);
 			} else {
 				overallCost += currentParcelCost;
 			}
-		} else if (parcel.weight > 20) { // be explicit and declarative for readibility
+		} else if (overallWeight.weight > 20) { // be explicit and declarative for readibility
 			const currentParcelCost = parcel.weight * 2;
 			if (!sameStatePackage) {
 				overallCost = outerStatePackageCost(currentParcelCost);
