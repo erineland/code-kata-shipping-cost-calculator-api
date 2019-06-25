@@ -18,29 +18,41 @@ const router = express.Router()
 // 8 pound shipment will be 8 dollars;
 // 25 pound shipment will be 50 dollars;
 
-router.post('/request-shipment', function(req, res, next) {
+router.post('/request-shipment', function (req, res, next) {
 	// TODO implement based on README
-	// res.status(200).send({ shipment: { cost: 'Dummy Shipment' } })
-
-	console.log(`req object is: ${req}`);
 
 	const shipmentRequest = req.body;
+	console.log(`shipmentRequest object is: ${JSON.stringify(shipmentRequest)}`);
+
+	const sameStatePackage = shipmentRequest.shippingAddress.state === shipmentRequest.receivingAddress.state;
 
 	// Iterate packages
 	shipmentRequest.packages.forEach(parcel => {
 		// Check unit of measurement for weight
-		if (parcel.unit === 'LB') {
-			if (parcel.weight <= 2) {
-				return res.status(200).send({ shipment: { cost: 0 }});
-			} else if (parcel.weight > 2 && parcel.weight < 20) {
-				const cost = parcel.weight * 1;
-				return res.status(200).send({ shipment: { cost: cost }});
-			} else if (parcel.weight > 20) { // be explicit and declarative for readibility
-				const cost = parcel.weight * 2;
-				return res.status(200).send({ shipment: { cost: cost }});
+		if (parcel.unit === 'KG') {
+			// Then convert weight to LB
+			// 1 KG = 2.2 LB
+			parcel.weight = parcel.weight * 2.2
+		}
+
+		if (parcel.weight <= 2) {
+			return res.status(200).send({ shipment: { cost: 0 } });
+		} else if (parcel.weight > 2 && parcel.weight < 20) {
+			let cost = parcel.weight;
+			if (!sameStatePackage) {
+				cost = outerStatePackageCost(cost);
 			}
+			return res.status(200).send({ shipment: { cost: cost } });
+		} else if (parcel.weight > 20) { // be explicit and declarative for readibility
+			const cost = parcel.weight * 2;
+			if (!sameStatePackage) {
+				cost = outerStatePackageCost(cost);;
+			}
+			return res.status(200).send({ shipment: { cost: cost } });
 		}
 	});
 });
+
+const outerStatePackageCost = originalCost => originalCost * 1.2;
 
 module.exports = router;
