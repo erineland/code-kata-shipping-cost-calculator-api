@@ -30,8 +30,14 @@ router.post('/request-shipment', function(req, res, next) {
 	shipmentRequest.packages.forEach(parcel => {
 		// Check unit of measurement for weight
 		if (parcel.unit === 'LB') {
-			if (parcel.weight < 2) {
-				res.status(200).send({ shipment: { cost: 0 }});
+			if (parcel.weight <= 2) {
+				return res.status(200).send({ shipment: { cost: 0 }});
+			} else if (parcel.weight > 2 && parcel.weight < 20) {
+				const cost = parcel.weight * 1;
+				return res.status(200).send({ shipment: { cost: cost }});
+			} else if (parcel.weight > 20) { // be explicit and declarative for readibility
+				const cost = parcel.weight * 2;
+				return res.status(200).send({ shipment: { cost: cost }});
 			}
 		}
 	});
