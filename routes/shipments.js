@@ -34,7 +34,7 @@ router.post('/request-shipment', function (req, res, next) {
 		if (parcel.unit === 'KG') {
 			// Then convert weight to LB
 			// 1 KG = 2.2 LB
-			parcel.weight = parcel.weight * 2.2
+			parcel.weight = Math.round(((parcel.weight * 2.2) * 100 / 100));
 		}
 
 		overallWeight += parcel.weight;
