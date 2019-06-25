@@ -28,7 +28,9 @@ router.post('/request-shipment', function (req, res, next) {
 
 	// Iterate packages
 	let overallCost = 0;
-	let overallWeight = 0;
+	let overallWeight = shipmentRequest.packages.reduce((weight, currentParcel) => {
+		weight += currentParcel.weight;
+	});
 	shipmentRequest.packages.forEach(parcel => {
 		// Check unit of measurement for weight
 		if (parcel.unit === 'KG') {
@@ -36,8 +38,6 @@ router.post('/request-shipment', function (req, res, next) {
 			// 1 KG = 2.2 LB
 			parcel.weight = parcel.weight * 2.2
 		}
-
-		overallWeight += parcel.weight;
 
 		if (overallWeight.weight > 2 && overallWeight.weight < 20) {
 			let currentParcelCost = parcel.weight;
